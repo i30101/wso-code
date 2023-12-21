@@ -1,8 +1,8 @@
 # Author: Andrew Kim
-# Version: 1.1.0
+# Version: 1.1.1
 # Since: 19 December 2023
 # Test generator app
-
+# NOTE FIX COLUMNAR!!!!
 # hi kt hi mango ~ mmm
 
 # import external libraries
@@ -54,7 +54,6 @@ def random_quote(max_length: int = 100) -> tuple:
                 quote.count(",") < 4 and        # less than four commas
                 len(quote) < max_length and     # less than 100 characters
                 not any(char.isdigit() for char in quote)   # quote does not have numbers
-
             ):
                 return quote, quote_dict["author"]
         else:
@@ -115,8 +114,13 @@ class CipherGeneratorApp:
         self.entry_porta = tk.Entry(master)
         self.entry_porta.pack(pady=(0, 10))
 
+        # Checkbox
+        self.randomize = tk.BooleanVar()
+        self.checkbox = tk.Checkbutton(master, text="Randomize order of ciphers?", variable=self.randomize)
+        self.checkbox.pack(pady=10)
+
         # Output area (increased size)
-        self.output_area = scrolledtext.ScrolledText(master, width=100, height=20)
+        self.output_area = scrolledtext.ScrolledText(master, width=110, height=35)
         self.output_area.pack()
 
         # Generate button
@@ -141,20 +145,19 @@ class CipherGeneratorApp:
         self.output_area.delete(1.0, tk.END)
 
         # Generate ciphers
-        columnars = [self.ciphers.columnar() for _ in range(num_columnar)]
-        fractionateds = [self.ciphers.fractionated() for _ in range(num_fractionated)]
-        hill_2s = [self.ciphers.hill_2() for _ in range(num_hill_2)]
-        hill_3s = [self.ciphers.hill_3() for _ in range(num_hill_3)]
-        nihilists = [self.ciphers.nihilist() for _ in range(num_nihilist)]
-        portas = [self.ciphers.porta() for _ in range(num_porta)]
+        questions = []
+        questions += [self.ciphers.columnar() for _ in range(num_columnar)]
+        questions += [self.ciphers.fractionated() for _ in range(num_fractionated)]
+        questions += [self.ciphers.hill_2() for _ in range(num_hill_2)]
+        questions += [self.ciphers.hill_3() for _ in range(num_hill_3)]
+        questions += [self.ciphers.nihilist() for _ in range(num_nihilist)]
+        questions += [self.ciphers.porta() for _ in range(num_porta)]
+
+        if self.randomize.get():
+            random.shuffle(questions)
 
         # Display ciphers in the output area
-        self.output_area.insert(tk.END, "\n".join(columnars))
-        self.output_area.insert(tk.END, "\n".join(fractionateds))
-        self.output_area.insert(tk.END, "\n".join(hill_2s))
-        self.output_area.insert(tk.END, "\n".join(hill_3s))
-        self.output_area.insert(tk.END, "\n".join(nihilists))
-        self.output_area.insert(tk.END, "\n".join(portas))
+        self.output_area.insert(tk.END, "\n".join(questions))
 
 
 
@@ -209,7 +212,7 @@ class Ciphers:
 
 
     # complete columnar transposition cipher
-    def columnar(self):
+    def old_columnar(self):
         quote, author = random_quote()
         num_columns = 0
 
@@ -238,6 +241,35 @@ class Ciphers:
         random.shuffle(columns)
 
         return f"Solve this Complete Columnar Transposition cipher by {author}.\n{''.join(columns)}\n\n"
+    
+
+    # new columnar transposition ciphe
+    def columnar(self):
+        quote, author = random_quote()
+        quote = self.remove_punctuation(quote).upper()
+        
+        words = quote.split(" ")
+        crib = random.choice([word for word in words if len(word) > 5])
+
+        # choose number of columns
+        max_columns = 9 if len(crib) > 8 else len(crib) + 1
+        num_columns = random.randint(4, max_columns)
+
+        # adjust ciphertext 
+        quote = self.get_letters(quote)
+        remainder = len(quote) % num_columns
+        if remainder != 0:
+            quote += "X" * (num_columns - remainder)
+
+        # put letters in columns
+        columns = ["" for i in range(num_columns)]
+        for j in range(len(quote)):
+            columns[j % num_columns] += quote[j]
+
+        # shuffle columns
+        random.shuffle(columns)
+
+        return f"Solve this Columnar Transposition cipher by {author} with the crib {crib}.\n{''.join(columns)}\n\n"
     
 
     # translates text to morse
@@ -321,7 +353,7 @@ class Ciphers:
         # adjust size of plaintext
         remainder = len(plaintext) % 3
         if remainder != 0:
-            plaintext += ["X" for i in range(3 - remainder)]
+            plaintext += ["Z" for i in range(3 - remainder)]
 
         # get triplets of numbers - full 3x3 numerial matrices
         triplets = []
