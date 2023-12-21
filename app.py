@@ -1,5 +1,5 @@
 # Author: Andrew Kim
-# Version: 1.1.1
+# Version: 1.2.0
 # Since: 19 December 2023
 # Test generator app
 # NOTE FIX COLUMNAR!!!!
