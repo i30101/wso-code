@@ -2,7 +2,6 @@
 # Version: 1.2.0
 # Since: 19 December 2023
 # Test generator app
-# NOTE FIX COLUMNAR!!!!
 # hi kt hi mango ~ mmm
 
 # import external libraries
