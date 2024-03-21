@@ -3,6 +3,7 @@
 # Since: 19 December 2023
 # Test generator app
 # hi kt hi mango ~ mmm
+# TODO: fix Nihilist keyword generator
 
 # import external libraries
 import random
