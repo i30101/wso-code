@@ -1,6 +1,6 @@
 # Author: Andrew Kim
-# Version: 1.2.0
-# Since: 19 December 2023
+# Version: 1.2.1
+# Since: 24 March 2024
 # Test generator app
 # hi kt hi mango ~ mmm
 # TODO: fix Nihilist keyword generator
@@ -119,11 +119,11 @@ class CipherGeneratorApp:
         self.checkbox = tk.Checkbutton(master, text="Randomize order of ciphers?", variable=self.randomize)
         self.checkbox.pack(pady=10)
 
-        # Output area (increased size)
+        # output area
         self.output_area = scrolledtext.ScrolledText(master, width=110, height=25)
         self.output_area.pack()
 
-        # Generate button
+        # generate button
         self.generate_button = tk.Button(master, text="Generate Ciphers", command=self.generate_ciphers)
         self.generate_button.pack(pady=10)
 
