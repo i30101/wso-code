@@ -70,7 +70,7 @@ class CipherGeneratorApp:
         master.title("kt + mango cipher generator")
 
         # Set default window size to 1000x1000 pixels
-        master.geometry("1000x800")
+        master.geometry("1000x840")
 
         # input for columar
         self.label_columnar = tk.Label(master, text="Number of Columnar Transposition ciphers:")
@@ -116,8 +116,13 @@ class CipherGeneratorApp:
 
         # checkbox for random order
         self.randomize = tk.BooleanVar()
-        self.checkbox = tk.Checkbutton(master, text="Randomize order of ciphers?", variable=self.randomize)
-        self.checkbox.pack(pady=10)
+        self.rand_checkbox = tk.Checkbutton(master, text="Randomize order of ciphers?", variable=self.randomize)
+        self.rand_checkbox.pack()
+
+        # checkbox for write to text file
+        self.write_txt = tk.BooleanVar()
+        self.write_checkbox = tk.Checkbutton(master, text="Write ciphers to text file?", variable=self.write_txt)
+        self.write_checkbox.pack(pady=10)
 
         # output area
         self.output_area = scrolledtext.ScrolledText(master, width=110, height=25)
@@ -209,41 +214,9 @@ class Ciphers:
             cleaned = cleaned.replace(punc, "")
         plain = plain.replace("  ", " ")
         return cleaned
-
-
-    # complete columnar transposition cipher
-    def old_columnar(self):
-        quote, author = random_quote()
-        num_columns = 0
-
-        # find a complete quote
-        griddable = False
-        while not griddable:
-            quote, author = random_quote()
-            quote = self.get_letters(quote)
-
-            available_columns = list(range(4, 10))
-
-            for j in range(len(available_columns)):
-                rand_column = random.choice(available_columns)
-                if len(quote) % rand_column == 0:
-                    num_columns = rand_column
-                    griddable = True
-                    break
-                available_columns.remove(rand_column)
-
-        # put letters in columns
-        columns = ["" for i in range(num_columns)]
-        for j in range(len(quote)):
-            columns[j % num_columns] += quote[j]
-
-        # shuffle columns
-        random.shuffle(columns)
-
-        return f"Solve this Complete Columnar Transposition cipher by {author}.\n{''.join(columns)}\n\n"
     
 
-    # new columnar transposition ciphe
+    # columnar transposition cipher
     def columnar(self):
         quote, author = random_quote()
         quote = self.remove_punctuation(quote).upper()
@@ -269,7 +242,7 @@ class Ciphers:
         # shuffle columns
         random.shuffle(columns)
 
-        return f"Solve this Columnar Transposition cipher by {author} with the crib {crib}.\n{''.join(columns)}\n\n"
+        return f"Solve this Columnar Transposition cipher by {author} that contains the word {crib}.\n{''.join(columns)}\n\n"
     
 
     # translates text to morse
