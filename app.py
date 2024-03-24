@@ -75,42 +75,36 @@ class CipherGeneratorApp:
         # input for columar
         self.label_columnar = tk.Label(master, text="Number of Columnar Transposition ciphers:")
         self.label_columnar.pack()
-
         self.entry_columnar = tk.Entry(master)
         self.entry_columnar.pack(pady=(0, 10))
 
         # input for fractionated
         self.label_morse = tk.Label(master, text="Number of Fractionated Morse ciphers:")
         self.label_morse.pack()
-
         self.entry_morse = tk.Entry(master)
         self.entry_morse.pack(pady=(0, 10))
 
         # input for hill 2x2
         self.label_hill_2x2 = tk.Label(master, text="Number of Hill 2x2 ciphers:")
         self.label_hill_2x2.pack()
-
         self.entry_hill_2x2 = tk.Entry(master)
         self.entry_hill_2x2.pack(pady=(0, 10))
 
         # input for hill 3x3
         self.label_hill_3x3 = tk.Label(master, text="Number of Hill 3x3 ciphers:")
         self.label_hill_3x3.pack()
-
         self.entry_hill_3x3 = tk.Entry(master)
         self.entry_hill_3x3.pack(pady=(0, 10))
 
         # input for nihilist
         self.label_nihilist = tk.Label(master, text="Number of Nihilist ciphers:")
         self.label_nihilist.pack()
-
         self.entry_nihilist = tk.Entry(master)
         self.entry_nihilist.pack(pady=(0, 10))
 
         # input for porta
         self.label_porta = tk.Label(master, text="Number of Porta ciphers:")
         self.label_porta.pack()
-
         self.entry_porta = tk.Entry(master)
         self.entry_porta.pack(pady=(0, 10))
 
