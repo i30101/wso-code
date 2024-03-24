@@ -67,71 +67,84 @@ class CipherGeneratorApp:
         self.ciphers = Ciphers()
 
         self.master = master
-        master.title("kt + mango cipher generator")
+        self.master.title("kt + mango cipher generator")
 
         # default window size
-        master.geometry("1000x900")
+        self.master.geometry("1200x350")
+
+        # left frame for input descriptions
+        self.left_frame = tk.Frame(master, width=160, height=100)
+        self.left_frame.grid(row=0, column=0, padx=10, pady=5)
+
+        # right frame for outputs
+        self.right_frame = tk.Frame(master, width=120, height=25)
+        self.right_frame.grid(row=0, column=2, padx=10, pady=5)
+
 
         # input for columar
-        self.label_columnar = tk.Label(master, text="Number of Columnar Transposition ciphers:")
-        self.label_columnar.pack()
-        self.entry_columnar = tk.Entry(master)
-        self.entry_columnar.pack(pady=(0, 10))
+        self.label_columnar = tk.Label(self.left_frame, text="Number of Columnar Transposition ciphers:")
+        self.label_columnar.grid(sticky="nw", row=0, column=0, padx=5, pady=5)
+        self.entry_columnar = tk.Entry(self.left_frame, width=15)
+        self.entry_columnar.grid(row=0, column=1, padx=5, pady=5)
+
 
         # input for fractionated
-        self.label_morse = tk.Label(master, text="Number of Fractionated Morse ciphers:")
-        self.label_morse.pack()
-        self.entry_morse = tk.Entry(master)
-        self.entry_morse.pack(pady=(0, 10))
+        self.label_morse = tk.Label(self.left_frame, text="Number of Fractionated Morse ciphers:")
+        self.label_morse.grid(sticky="nw", row=1, column=0, padx=5, pady=5)
+        self.entry_morse = tk.Entry(self.left_frame, width=15)
+        self.entry_morse.grid(row=1, column=1, padx=5, pady=5)
 
         # input for hill 2x2
-        self.label_hill_2x2 = tk.Label(master, text="Number of Hill 2x2 ciphers:")
-        self.label_hill_2x2.pack()
-        self.entry_hill_2x2 = tk.Entry(master)
-        self.entry_hill_2x2.pack(pady=(0, 10))
+        self.label_hill_2x2 = tk.Label(self.left_frame, text="Number of Hill 2x2 ciphers:")
+        self.label_hill_2x2.grid(sticky="nw", row=2, column=0, padx=5, pady=5)
+        self.entry_hill_2x2 = tk.Entry(self.left_frame, width=15)
+        self.entry_hill_2x2.grid(row=2, column=1, padx=5, pady=5)
 
         # input for hill 3x3
-        self.label_hill_3x3 = tk.Label(master, text="Number of Hill 3x3 ciphers:")
-        self.label_hill_3x3.pack()
-        self.entry_hill_3x3 = tk.Entry(master)
-        self.entry_hill_3x3.pack(pady=(0, 10))
+        self.label_hill_3x3 = tk.Label(self.left_frame, text="Number of Hill 3x3 ciphers:")
+        self.label_hill_3x3.grid(sticky="nw", row=3, column=0, padx=5, pady=5)
+        self.entry_hill_3x3 = tk.Entry(self.left_frame, width=15)
+        self.entry_hill_3x3.grid(row=3, column=1, padx=5, pady=5)
 
         # input for nihilist
-        self.label_nihilist = tk.Label(master, text="Number of Nihilist ciphers:")
-        self.label_nihilist.pack()
-        self.entry_nihilist = tk.Entry(master)
-        self.entry_nihilist.pack(pady=(0, 10))
+        self.label_nihilist = tk.Label(self.left_frame, text="Number of Nihilist ciphers:")
+        self.label_nihilist.grid(sticky="nw", row=4, column=0, padx=5, pady=5)
+        self.entry_nihilist = tk.Entry(self.left_frame, width=15)
+        self.entry_nihilist.grid(row=4, column=1, padx=5, pady=5)
 
         # input for porta
-        self.label_porta = tk.Label(master, text="Number of Porta ciphers:")
-        self.label_porta.pack()
-        self.entry_porta = tk.Entry(master)
-        self.entry_porta.pack(pady=(0, 10))
+        self.label_porta = tk.Label(self.left_frame, text="Number of Porta ciphers:")
+        self.label_porta.grid(sticky="nw", row=5, column=0, padx=5, pady=5)
+        self.entry_porta = tk.Entry(self.left_frame, width=15)
+        self.entry_porta.grid(row=5, column=1, padx=5, pady=5)
 
         # checkbox for random order
+        self.label_randomize = tk.Label(self.left_frame, text="Randomize order of ciphers?")
+        self.label_randomize.grid(sticky="nw", row=6, column=0, padx=5, pady=5)
         self.randomize = tk.BooleanVar()
-        self.rand_checkbox = tk.Checkbutton(master, text="Randomize order of ciphers?", variable=self.randomize)
-        self.rand_checkbox.pack()
+        self.rand_checkbox = tk.Checkbutton(self.left_frame, variable=self.randomize)
+        self.rand_checkbox.grid(sticky="nw", row=6, column=1, padx=5, pady=5)
 
         # checkbox for write to text file
+        self.label_write = tk.Label(self.left_frame, text="Write ciphers to text file?")
+        self.label_write.grid(sticky="nw", row=7, column=0, padx=5, pady=5)
         self.write_txt = tk.BooleanVar()
-        self.write_checkbox = tk.Checkbutton(master, text="Write ciphers to text file?", variable=self.write_txt)
-        self.write_checkbox.pack(pady=10)
+        self.write_checkbox = tk.Checkbutton(self.left_frame, variable=self.write_txt)
+        self.write_checkbox.grid(sticky="nw", row=7, column=1, padx=5, pady=5)
 
         # show filename input for writing to text file
-        self.write_path = tk.Label(master, text="Custom filepath: ")
-        self.write_path.pack()
-
-        self.entry_path = tk.Entry(master)
-        self.entry_path.pack(pady=(0, 10))
+        self.write_path = tk.Label(self.left_frame, text="Custom filepath: ")
+        self.write_path.grid(sticky="nw", row=8, column=0, padx=5, pady=5)
+        self.entry_path = tk.Entry(self.left_frame, width=15)
+        self.entry_path.grid(row=8, column=1, padx=5, pady=5)
 
         # output area
-        self.output_area = scrolledtext.ScrolledText(master, width=110, height=25)
+        self.output_area = scrolledtext.ScrolledText(self.right_frame, width=98, height=20)
         self.output_area.pack()
 
-        # generate button
-        self.generate_button = tk.Button(master, text="Generate Ciphers", command=self.generate_ciphers)
-        self.generate_button.pack(pady=10)
+        # # generate button
+        self.generate_button = tk.Button(self.left_frame, text="Generate Ciphers", command=self.generate_ciphers)
+        self.generate_button.grid(row=9, column=1, padx=5, pady=5)
 
 
     def generate_ciphers(self):
