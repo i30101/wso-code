@@ -69,8 +69,8 @@ class CipherGeneratorApp:
         self.master = master
         master.title("kt + mango cipher generator")
 
-        # Set default window size to 1000x1000 pixels
-        master.geometry("1000x840")
+        # default window size
+        master.geometry("1000x900")
 
         # input for columar
         self.label_columnar = tk.Label(master, text="Number of Columnar Transposition ciphers:")
@@ -124,6 +124,13 @@ class CipherGeneratorApp:
         self.write_checkbox = tk.Checkbutton(master, text="Write ciphers to text file?", variable=self.write_txt)
         self.write_checkbox.pack(pady=10)
 
+        # show filename input for writing to text file
+        self.write_path = tk.Label(master, text="Custom filepath: ")
+        self.write_path.pack()
+
+        self.entry_path = tk.Entry(master)
+        self.entry_path.pack(pady=(0, 10))
+
         # output area
         self.output_area = scrolledtext.ScrolledText(master, width=110, height=25)
         self.output_area.pack()
@@ -160,6 +167,14 @@ class CipherGeneratorApp:
 
         if self.randomize.get():
             random.shuffle(questions)
+
+        if self.write_txt.get():
+            filepath = "output.txt" if self.entry_path.get() == "" else self.entry_path.get()
+            if ".txt" not in filepath:
+                filepath += ".txt"
+            f = open(filepath, "w")
+            f.write("\n".join(questions))
+            f.close()
 
         # Display ciphers in the output area
         self.output_area.insert(tk.END, "\n".join(questions))
