@@ -24,4 +24,4 @@ Dependencies:
 Run `app.py` and enter the number of ciphers you want. Generating the ciphers may take some time so don't close out of the window when it says the app isn't responding.
 
 ## Updates
-- Release 2.1.0: new user interface and file saving option
+- Release 2.1.0: new user interface and option to save ciphers to file
