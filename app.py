@@ -1,9 +1,7 @@
 # Author: Andrew Kim
-# Version: 1.2.1
-# Since: 24 March 2024
-# Test generator app
-# hi kt hi mango ~ mmm
-# TODO: fix Nihilist keyword generator
+# Version: 2.1.0
+# Since: 26 March 2024
+# Cipher text generator app
 
 # import external libraries
 import random
