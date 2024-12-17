@@ -130,8 +130,8 @@ class Ciphers:
             triplet = morse_text[j: j + 3]
             letter = cipher_alphabet[self.FRACTIONATED.index(triplet)]
             cipher_text += letter
-
-        return f"Solve this Fractionated Morse cipher by {author} that ends with the word {plaintext[plaintext.rindex(' '):].upper()}", '  '.join(cipher_text)
+        
+        return f"Solve this Fractionated Morse cipher by {author} that ends with the word{plaintext[plaintext.rindex(' '):].upper()}", '  '.join(cipher_text)
 
     
     # 2x2 hill cipher
